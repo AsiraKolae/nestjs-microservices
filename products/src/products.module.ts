@@ -18,7 +18,6 @@ import { UsersResolver } from './users.resolver';
         federation: 2,
       },
     }),
-    // MongooseModule.forRoot('mongodb+srv://AsiraKolae:AcWVICx2vcgHbQ0m@nestjs.75txxey.mongodb.net/NestJs'),
     MongooseModule.forRoot('mongodb+srv://Asira:test@nestjs.75txxey.mongodb.net/NestJs'),
     MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
   ],

@@ -19,11 +19,11 @@ import { authContext } from './auth.context';
           subgraphs: [
             {
               name: 'users',
-              url: 'http://localhost:3000/graphql',
+              url: 'http://localhost:3001/graphql',
             },
             {
               name: 'products',
-              url: 'http://localhost:3001/graphql',
+              url: 'http://localhost:3002/graphql',
             },
           ],
         }),
