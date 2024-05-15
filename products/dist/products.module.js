@@ -33,4 +33,3 @@ exports.ProductsModule = ProductsModule = __decorate([
         providers: [products_resolver_1.ProductsResolver, products_service_1.ProductsService, users_resolver_1.UsersResolver],
     })
 ], ProductsModule);
-//# sourceMappingURL=products.module.js.map

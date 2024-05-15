@@ -7,4 +7,3 @@ async function bootstrap() {
     await app.listen(3002);
 }
 bootstrap();
-//# sourceMappingURL=main.js.map
