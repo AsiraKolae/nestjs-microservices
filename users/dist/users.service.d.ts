@@ -25,10 +25,13 @@
 import { Model } from 'mongoose';
 import { CreateUserInput } from './dto/create-user.input';
 import { User } from './entities/user.entity';
+import { JwtService } from '@nestjs/jwt';
 export declare class UsersService {
     private userModel;
-    constructor(userModel: Model<User>);
+    private jwtService;
+    constructor(userModel: Model<User>, jwtService: JwtService);
+    findOneByEmail(email: string): Promise<User>;
     create(createUserInput: CreateUserInput): Promise<User>;
-    findOne(id: string): Promise<User>;
+    findOne(email: string): Promise<User>;
     findAll(): Promise<User[]>;
 }

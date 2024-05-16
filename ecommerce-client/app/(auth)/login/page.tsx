@@ -21,11 +21,10 @@ type InputType = z.infer<typeof FormSchema>;
 const LoginPage = () => {
     const [isVisiblePass, setIsVisiblePass] = useState(false)
     const router = useRouter();
-
+    
     const { register, handleSubmit, formState: { errors } } = useForm<InputType>({
         resolver: zodResolver(FormSchema),
     });
-
     
     const onSubmit: SubmitHandler<InputType> = async (data) => {
         await signIn("credentials", {
@@ -48,9 +47,7 @@ const LoginPage = () => {
                     },
                 });
             }
-
         });
-
     };
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-32 lg:px-8 lg:py-32 mb-20">

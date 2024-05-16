@@ -17,12 +17,24 @@ const graphql_1 = require("@nestjs/graphql");
 const users_service_1 = require("./users.service");
 const user_entity_1 = require("./entities/user.entity");
 const create_user_input_1 = require("./dto/create-user.input");
+const auth_service_1 = require("./auth.service");
 let UsersResolver = class UsersResolver {
-    constructor(usersService) {
+    constructor(usersService, authService) {
         this.usersService = usersService;
+        this.authService = authService;
     }
     async createUser(createUserInput) {
         return await this.usersService.create(createUserInput);
+    }
+    async findOneByEmail(email) {
+        return await this.usersService.findOneByEmail(email);
+    }
+    async loginUser(email, password) {
+        const user = await this.authService.validateUser(email, password);
+        if (!user) {
+            throw new Error('Invalid email or password');
+        }
+        return user;
     }
     async findOne(id) {
         return await this.usersService.findOne(id);
@@ -42,6 +54,21 @@ __decorate([
     __metadata("design:paramtypes", [create_user_input_1.CreateUserInput]),
     __metadata("design:returntype", Promise)
 ], UsersResolver.prototype, "createUser", null);
+__decorate([
+    (0, graphql_1.Query)(() => user_entity_1.User, { name: 'userEmail' }),
+    __param(0, (0, graphql_1.Args)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersResolver.prototype, "findOneByEmail", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => user_entity_1.User),
+    __param(0, (0, graphql_1.Args)('email')),
+    __param(1, (0, graphql_1.Args)('password')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], UsersResolver.prototype, "loginUser", null);
 __decorate([
     (0, graphql_1.Query)(() => user_entity_1.User, { name: 'user' }),
     __param(0, (0, graphql_1.Args)('id')),
@@ -63,6 +90,6 @@ __decorate([
 ], UsersResolver.prototype, "resolveReference", null);
 exports.UsersResolver = UsersResolver = __decorate([
     (0, graphql_1.Resolver)(() => user_entity_1.User),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])
 ], UsersResolver);
 //# sourceMappingURL=users.resolver.js.map

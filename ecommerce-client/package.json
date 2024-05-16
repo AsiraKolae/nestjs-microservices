@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.10.4",
     "@google-cloud/vision": "^2.4.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
@@ -21,10 +22,12 @@
     "filepond": "^4.30.6",
     "filepond-plugin-image-exif-orientation": "^1.0.11",
     "filepond-plugin-image-preview": "^4.6.12",
+    "graphql": "^16.8.1",
     "jqljs": "^0.3.2",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
     "node-fetch": "^3.3.2",
+    "postcss": "^8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-filepond": "^7.1.2",
@@ -32,12 +35,11 @@
     "react-thailand-address-typeahead": "^2.0.1",
     "react-toastify": "^10.0.4",
     "swiper": "^11.0.5",
+    "tailwindcss": "^3.3.0",
     "thai-address-autocomplete-react": "^1.0.1",
     "validator": "^13.11.0",
     "zod": "^3.22.4",
-    "zustand": "^4.5.0",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0"
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@types/node": "^20",

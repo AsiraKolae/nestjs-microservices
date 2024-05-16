@@ -14,6 +14,8 @@ const graphql_1 = require("@nestjs/graphql");
 const apollo_1 = require("@nestjs/apollo");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_entity_1 = require("./entities/user.entity");
+const jwt_1 = require("@nestjs/jwt");
+const auth_service_1 = require("./auth.service");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -29,7 +31,7 @@ exports.UsersModule = UsersModule = __decorate([
             mongoose_1.MongooseModule.forRoot('mongodb+srv://Asira:test@nestjs.75txxey.mongodb.net/NestJs'),
             mongoose_1.MongooseModule.forFeature([{ name: user_entity_1.User.name, schema: user_entity_1.UserSchema }]),
         ],
-        providers: [users_resolver_1.UsersResolver, users_service_1.UsersService],
+        providers: [users_resolver_1.UsersResolver, users_service_1.UsersService, jwt_1.JwtService, auth_service_1.AuthService],
     })
 ], UsersModule);
 //# sourceMappingURL=users.module.js.map

@@ -17,9 +17,18 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_entity_1 = require("./entities/user.entity");
+const jwt_1 = require("@nestjs/jwt");
 let UsersService = class UsersService {
-    constructor(userModel) {
+    constructor(userModel, jwtService) {
         this.userModel = userModel;
+        this.jwtService = jwtService;
+    }
+    async findOneByEmail(email) {
+        const user = await this.userModel.findOne({ email }).exec();
+        if (!user) {
+            throw new Error(`User with email ${email} not found`);
+        }
+        return user;
     }
     async create(createUserInput) {
         const { email, password } = createUserInput;
@@ -29,10 +38,10 @@ let UsersService = class UsersService {
         const createdUser = new this.userModel({ email, password });
         return await createdUser.save();
     }
-    async findOne(id) {
-        const user = await this.userModel.findById(id).exec();
+    async findOne(email) {
+        const user = await this.userModel.findById(email).exec();
         if (!user || !user.email || !user.password) {
-            throw new common_1.NotFoundException(`User with ID ${id} not found`);
+            throw new common_1.NotFoundException(`User with ID ${email} not found`);
         }
         return user;
     }
@@ -46,6 +55,6 @@ exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model, jwt_1.JwtService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

@@ -10,26 +10,35 @@ export const options: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
+      
       async authorize(credentials) {
-        const res = await fetch(`${process.env.API_URL}/login`, {
+        const query = `
+          query {
+            userEmail(email: "${credentials.email}") {
+              id
+              email
+              password
+            }
+          }
+        `;
+        
+        const requestBody = {
+          query: query,
+          variables: {}
+        };
+  
+        const res = await fetch(`http://localhost:3001/graphql`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: credentials?.email,
-            password: credentials?.password,
-            client: 1,
-          }),
+          body: JSON.stringify(requestBody)
         });
-
+  
         const user = await res.json();
-
-        if (user.status.code === 200) {
+        console.log(user);
+        
+        if (user.data.userEmail.email !== null) {
           return user;
-        } else if (user.status.code === 422) {
-          return Promise.reject({
-            message: "อีเมล หรือ รหัสผ่าน ไม่ถูกต้อง",
-          });
-        } else {
+        }else {
           return null;
         }
       },
